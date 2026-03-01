@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   --bg-dark: #09090b;
@@ -10,27 +14,21 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
   font-family: var(--font-family);
   background: var(--bg-dark);
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-/* Stunning animated background gradient */
-.app-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
-              radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
-  z-index: -1;
-  animation: bg-pulse 10s ease-in-out infinite alternate;
+/* Base custom utility classes for App/Pages */
+@layer components {
+  .app-background {
+    @apply fixed inset-0 w-full h-full -z-10;
+    background: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
+    animation: bg-pulse 10s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes bg-pulse {
@@ -38,15 +36,16 @@ body {
   100% { transform: scale(1.1); }
 }
 
-#root {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  position: relative;
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+/* Glass panel from original app */
 .glass-panel {
   background: var(--panel-bg);
   backdrop-filter: blur(16px);
@@ -55,27 +54,10 @@ body {
   border-radius: 24px;
   padding: 3rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  max-width: 600px;
-  margin: 0 auto;
   transition: transform 0.3s ease;
 }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  background: linear-gradient(to right, #818cf8, #c084fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
-  margin-top: 0;
-}
-
-.subtitle {
-  color: #a1a1aa;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-}
-
+/* Legacy styles migrated from old frontend index.css */
 .upload-zone {
   border: 2px dashed rgba(99, 102, 241, 0.5);
   border-radius: 16px;
@@ -100,9 +82,7 @@ h1 {
   color: #818cf8;
 }
 
-.file-input {
-  display: none;
-}
+.file-input { display: none; }
 
 /* Loading Animation */
 .analyzing-container {

@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-multipart
+torch
+torchvision
+torchaudio
+opencv-python
+insightface
+timm
+librosa
+transformers
+onnxruntime
+ffmpeg-python
